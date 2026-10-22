@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Task 4: Interactive and Accessible HTML Contact Form with comprehensive validation and user input handling.">
+  <title>Contact Us - Interactive HTML Form</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="page-wrapper">
+    <header class="header">
+      <div class="badge">Task 4 &bull; Web Development</div>
+      <h1>Get in Touch With Us</h1>
+      <p class="subtitle">Fill out the form below. We will review your message and get back to you within 24 hours.</p>
+    </header>
+
+    <main class="form-container">
+      <!-- Success / Submission feedback dialog or card -->
+      <div id="successCard" class="success-card hidden" role="alert" aria-live="polite">
+        <div class="success-icon">✓</div>
+        <h2>Message Received!</h2>
+        <p>Thank you for reaching out. Here is a summary of the details you submitted:</p>
+        <div id="submissionSummary" class="submission-summary"></div>
+        <button type="button" id="resetFormBtn" class="btn btn-secondary">Send Another Message</button>
+      </div>
+
+      <!-- Main Form -->
+      <form id="contactForm" class="contact-form" action="#" method="POST" novalidate>
+        
+        <!-- SECTION 1: Personal Details (Text Fields) -->
+        <fieldset class="form-section">
+          <legend class="section-title">
+            <span class="step-num">1</span> Personal Details
+          </legend>
+
+          <div class="form-grid">
+            <!-- Full Name Input -->
+            <div class="form-group">
+              <label for="fullName">
+                Full Name <span class="required" aria-hidden="true">*</span>
+              </label>
+              <div class="input-wrapper">
+                <input 
+                  type="text" 
+                  id="fullName" 
+                  name="fullName" 
+                  placeholder="e.g. John Doe"
+                  autocomplete="name"
+                  minlength="2"
+                  maxlength="50"
+                  required
+                  aria-describedby="fullNameError"
+                >
+              </div>
+              <span id="fullNameError" class="error-message" aria-live="polite"></span>
+            </div>
+
+            <!-- Email Input -->
+            <div class="form-group">
+              <label for="email">
+                Email Address <span class="required" aria-hidden="true">*</span>
+              </label>
+              <div class="input-wrapper">
+                <input 
+                  type="email" 
+                  id="email" 
+                  name="email" 
+                  placeholder="e.g. john@example.com"
+                  autocomplete="email"
+                  required
+                  aria-describedby="emailError"
+                >
+              </div>
+              <span id="emailError" class="error-message" aria-live="polite"></span>
+            </div>
+
+            <!-- Phone Number Input -->
+            <div class="form-group">
+              <label for="phone">
+                Phone Number <span class="optional">(Optional)</span>
+              </label>
+              <div class="input-wrapper">
+                <input 
+                  type="tel" 
+                  id="phone" 
+                  name="phone" 
+                  placeholder="e.g. +1 (555) 000-1234"
+                  autocomplete="tel"
+                  pattern="^[+]?[0-9\s\-\(\)]{7,20}$"
+                  aria-describedby="phoneHelp phoneError"
+                >
+              </div>
+              <small id="phoneHelp" class="helper-text">Include country code if applicable</small>
+              <span id="phoneError" class="error-message" aria-live="polite"></span>
+            </div>
+
+            <!-- Dropdown Menu: Subject / Inquiry Department -->
+            <div class="form-group">
+              <label for="inquiryType">
+                Reason for Contact <span class="required" aria-hidden="true">*</span>
+              </label>
+              <div class="select-wrapper">
+                <select id="inquiryType" name="inquiryType" required aria-describedby="inquiryTypeError">
+                  <option value="" disabled selected>Select an option...</option>
+                  <option value="General Inquiry">General Inquiry</option>
+                  <option value="Customer Support">Customer Support</option>
+                  <option value="Sales & Pricing">Sales &amp; Pricing</option>
+                  <option value="Partnership">Partnership Opportunities</option>
+                  <option value="Bug Report">Feedback / Bug Report</option>
+                </select>
+              </div>
+              <span id="inquiryTypeError" class="error-message" aria-live="polite"></span>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- SECTION 2: Communication Preferences (Radio Buttons) -->
+        <fieldset class="form-section">
+          <legend class="section-title">
+            <span class="step-num">2</span> Preferred Contact Method
+          </legend>
+          <p class="fieldset-instruction">How would you prefer our team to follow up with you? <span class="required" aria-hidden="true">*</span></p>
+
+          <div class="radio-group" role="radiogroup" aria-required="true" aria-describedby="contactMethodError">
+            <label class="custom-radio">
+              <input type="radio" name="contactMethod" value="Email" checked>
+              <span class="radio-indicator"></span>
+              <span class="radio-label">
+                <strong>Email</strong>
+                <small>Standard response within 24 hours</small>
+              </span>
+            </label>
+
+            <label class="custom-radio">
+              <input type="radio" name="contactMethod" value="Phone">
+              <span class="radio-indicator"></span>
+              <span class="radio-label">
+                <strong>Phone Call</strong>
+                <small>Requires a valid phone number above</small>
+              </span>
+            </label>
+
+            <label class="custom-radio">
+              <input type="radio" name="contactMethod" value="No Follow-up">
+              <span class="radio-indicator"></span>
+              <span class="radio-label">
+                <strong>Do not contact</strong>
+                <small>Submission is for feedback only</small>
+              </span>
+            </label>
+          </div>
+          <span id="contactMethodError" class="error-message" aria-live="polite"></span>
+        </fieldset>
+
+        <!-- SECTION 3: Areas of Interest (Checkboxes) -->
+        <fieldset class="form-section">
+          <legend class="section-title">
+            <span class="step-num">3</span> Topics of Interest
+          </legend>
+          <p class="fieldset-instruction">Select all areas relevant to your inquiry: <span class="optional">(Optional)</span></p>
+
+          <div class="checkbox-grid">
+            <label class="custom-checkbox">
+              <input type="checkbox" name="interests" value="Web Development">
+              <span class="checkbox-indicator"></span>
+              <span class="checkbox-text">Web Development</span>
+            </label>
+
+            <label class="custom-checkbox">
+              <input type="checkbox" name="interests" value="UI/UX Design">
+              <span class="checkbox-indicator"></span>
+              <span class="checkbox-text">UI/UX Design</span>
+            </label>
+
+            <label class="custom-checkbox">
+              <input type="checkbox" name="interests" value="Cloud Services">
+              <span class="checkbox-indicator"></span>
+              <span class="checkbox-text">Cloud Hosting &amp; DevOps</span>
+            </label>
+
+            <label class="custom-checkbox">
+              <input type="checkbox" name="interests" value="Mobile Apps">
+              <span class="checkbox-indicator"></span>
+              <span class="checkbox-text">Mobile App Solutions</span>
+            </label>
+          </div>
+        </fieldset>
+
+        <!-- SECTION 4: Message & Terms (Textarea & Consent Checkbox) -->
+        <fieldset class="form-section">
+          <legend class="section-title">
+            <span class="step-num">4</span> Your Message
+          </legend>
+
+          <!-- Textarea Field -->
+          <div class="form-group">
+            <div class="label-row">
+              <label for="message">
+                Message <span class="required" aria-hidden="true">*</span>
+              </label>
+              <span class="char-count" id="charCounter" aria-live="polite">0 / 500 characters</span>
+            </div>
+            <textarea 
+              id="message" 
+              name="message" 
+              rows="5" 
+              placeholder="Describe your inquiry, project details, or any questions in detail..."
+              minlength="10"
+              maxlength="500"
+              required
+              aria-describedby="messageError"
+            ></textarea>
+            <span id="messageError" class="error-message" aria-live="polite"></span>
+          </div>
+
+          <!-- Consent & Agreement Checkbox -->
+          <div class="form-group consent-group">
+            <label class="custom-checkbox terms-checkbox">
+              <input 
+                type="checkbox" 
+                id="terms" 
+                name="terms" 
+                required
+                aria-describedby="termsError"
+              >
+              <span class="checkbox-indicator"></span>
+              <span class="checkbox-text">
+                I agree to the <a href="#privacy" class="link" onclick="alert('Privacy terms: Your information will be handled securely and never sold to third parties.'); return false;">privacy policy</a> and consent to having my information processed. <span class="required" aria-hidden="true">*</span>
+              </span>
+            </label>
+            <span id="termsError" class="error-message" aria-live="polite"></span>
+          </div>
+
+          <!-- Newsletter Optional Checkbox -->
+          <div class="form-group newsletter-group">
+            <label class="custom-checkbox">
+              <input type="checkbox" id="newsletter" name="newsletter" value="yes">
+              <span class="checkbox-indicator"></span>
+              <span class="checkbox-text">
+                Subscribe to our monthly developer newsletter for updates and tips.
+              </span>
+            </label>
+          </div>
+        </fieldset>
+
+        <!-- Form Actions (Submit & Reset) -->
+        <div class="form-actions">
+          <button type="reset" id="resetBtn" class="btn btn-outline">Clear Form</button>
+          <button type="submit" id="submitBtn" class="btn btn-primary">
+            <span>Submit Message</span>
+            <svg class="btn-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </button>
+        </div>
+      </form>
+    </main>
+
+    <footer class="footer">
+      <p>&copy; 2026 Interactive Web Forms &bull; Built for HTML &amp; Form Validation Mastery</p>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

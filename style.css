@@ -1,0 +1,608 @@
+/* ==========================================================
+   CSS STYLESHEET - TASK 4: MODERN & ACCESSIBLE FORM
+   ========================================================== */
+
+:root {
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --primary-light: #eff6ff;
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --bg-page: #f8fafc;
+  --bg-card: #ffffff;
+  --border-color: #cbd5e1;
+  --border-focus: #3b82f6;
+  --danger: #dc2626;
+  --danger-light: #fef2f2;
+  --success: #16a34a;
+  --success-light: #f0fdf4;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.03);
+  --font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* CSS Reset & Defaults */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--bg-page);
+  color: var(--text-main);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  padding: 2rem 1rem;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.page-wrapper {
+  width: 100%;
+  max-width: 780px;
+  margin: 0 auto;
+}
+
+/* Header Styles */
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.badge {
+  display: inline-block;
+  background-color: var(--primary-light);
+  color: var(--primary);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+  margin-bottom: 0.75rem;
+  letter-spacing: 0.025em;
+  border: 1px solid rgba(37, 99, 235, 0.15);
+}
+
+.header h1 {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: var(--text-main);
+  letter-spacing: -0.025em;
+  margin-bottom: 0.5rem;
+}
+
+.header .subtitle {
+  color: var(--text-muted);
+  font-size: 1rem;
+  max-width: 540px;
+  margin: 0 auto;
+}
+
+/* Form Container */
+.form-container {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid #e2e8f0;
+}
+
+/* Fieldset & Legends */
+.form-section {
+  border: none;
+  margin-bottom: 2rem;
+  padding-bottom: 1.75rem;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.form-section:last-of-type {
+  border-bottom: none;
+  margin-bottom: 1rem;
+  padding-bottom: 0;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 1.25rem;
+  width: 100%;
+}
+
+.step-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: #fff;
+  font-size: 0.8125rem;
+  font-weight: 700;
+}
+
+.fieldset-instruction {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 0.85rem;
+}
+
+/* Layout Grids */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+
+@media (max-width: 640px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .form-container {
+    padding: 1.5rem;
+  }
+
+  .header h1 {
+    font-size: 1.75rem;
+  }
+}
+
+/* Form Groups */
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #334155;
+  margin-bottom: 0.4rem;
+}
+
+.required {
+  color: var(--danger);
+  font-weight: 700;
+}
+
+.optional {
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: var(--text-muted);
+}
+
+.char-count {
+  font-size: 0.775rem;
+  color: var(--text-muted);
+}
+
+/* Inputs & Select Elements */
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+select,
+textarea {
+  width: 100%;
+  font-family: inherit;
+  font-size: 0.95rem;
+  color: var(--text-main);
+  background-color: #ffffff;
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 0.65rem 0.85rem;
+  transition: var(--transition);
+  outline: none;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #94a3b8;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+/* Input validation styles */
+.input-invalid {
+  border-color: var(--danger) !important;
+  background-color: var(--danger-light);
+}
+
+.input-valid {
+  border-color: var(--success);
+}
+
+.input-invalid:focus {
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.15) !important;
+}
+
+/* Select styling */
+.select-wrapper {
+  position: relative;
+}
+
+select {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 1rem;
+  padding-right: 2.25rem;
+  cursor: pointer;
+}
+
+/* Textarea */
+textarea {
+  resize: vertical;
+  min-height: 110px;
+}
+
+/* Helper & Error Texts */
+.helper-text {
+  font-size: 0.775rem;
+  color: var(--text-muted);
+  margin-top: 0.3rem;
+}
+
+.error-message {
+  font-size: 0.775rem;
+  color: var(--danger);
+  margin-top: 0.3rem;
+  min-height: 1.1rem;
+  font-weight: 500;
+  display: block;
+}
+
+/* Radio Buttons */
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.custom-radio {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: var(--transition);
+  background-color: #ffffff;
+}
+
+.custom-radio:hover {
+  background-color: #f8fafc;
+  border-color: #94a3b8;
+}
+
+.custom-radio input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.radio-indicator {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid var(--border-color);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+  flex-shrink: 0;
+}
+
+.custom-radio input[type="radio"]:checked + .radio-indicator {
+  border-color: var(--primary);
+  background-color: var(--primary);
+  box-shadow: inset 0 0 0 3px #ffffff;
+}
+
+.custom-radio:has(input[type="radio"]:checked) {
+  border-color: var(--primary);
+  background-color: var(--primary-light);
+}
+
+.custom-radio input[type="radio"]:focus-visible + .radio-indicator {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+.radio-label {
+  display: flex;
+  flex-direction: column;
+}
+
+.radio-label strong {
+  font-size: 0.9rem;
+  color: var(--text-main);
+}
+
+.radio-label small {
+  font-size: 0.775rem;
+  color: var(--text-muted);
+}
+
+/* Checkboxes */
+.checkbox-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.65rem;
+}
+
+@media (max-width: 500px) {
+  .checkbox-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.custom-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.6rem 0.85rem;
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: var(--transition);
+  background: #ffffff;
+}
+
+.custom-checkbox:hover {
+  background-color: #f8fafc;
+}
+
+.custom-checkbox input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.checkbox-indicator {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  border: 2px solid var(--border-color);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+  flex-shrink: 0;
+}
+
+.custom-checkbox input[type="checkbox"]:checked + .checkbox-indicator {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='20 6 9 17 4 12'%3e%3c/polyline%3e%3c/svg%3e");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 13px;
+}
+
+.custom-checkbox:has(input[type="checkbox"]:checked) {
+  border-color: var(--primary);
+  background-color: var(--primary-light);
+}
+
+.custom-checkbox input[type="checkbox"]:focus-visible + .checkbox-indicator {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+.checkbox-text {
+  font-size: 0.875rem;
+  color: var(--text-main);
+  user-select: none;
+}
+
+.terms-checkbox {
+  border: none;
+  background: transparent;
+  padding: 0;
+  align-items: flex-start;
+}
+
+.terms-checkbox:hover {
+  background: transparent;
+}
+
+.terms-checkbox .checkbox-text {
+  font-size: 0.825rem;
+  color: var(--text-muted);
+}
+
+.terms-checkbox .link {
+  color: var(--primary);
+  text-decoration: underline;
+}
+
+.newsletter-group {
+  margin-top: 0.75rem;
+}
+
+.newsletter-group .custom-checkbox {
+  border: none;
+  background: transparent;
+  padding: 0;
+}
+
+/* Form Buttons / Actions */
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid #e2e8f0;
+}
+
+.btn {
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 0.75rem 1.4rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: var(--transition);
+  border: none;
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  color: #ffffff;
+  box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(37, 99, 235, 0.3);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: var(--text-muted);
+  border: 1.5px solid var(--border-color);
+}
+
+.btn-outline:hover {
+  background-color: #f1f5f9;
+  color: var(--text-main);
+}
+
+.btn-secondary {
+  background-color: var(--primary);
+  color: white;
+  margin-top: 1.5rem;
+}
+
+/* Success Card */
+.hidden {
+  display: none !important;
+}
+
+.success-card {
+  text-align: center;
+  padding: 1.5rem 0;
+  animation: fadeIn 0.3s ease;
+}
+
+.success-icon {
+  width: 56px;
+  height: 56px;
+  background-color: var(--success-light);
+  color: var(--success);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+  font-weight: bold;
+  margin: 0 auto 1.25rem;
+  border: 2px solid var(--success);
+}
+
+.success-card h2 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 0.5rem;
+}
+
+.success-card p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+}
+
+.submission-summary {
+  background: var(--bg-page);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  text-align: left;
+  border: 1px solid var(--border-color);
+  font-size: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: 0.45rem;
+}
+
+.summary-row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.summary-label {
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.summary-value {
+  font-weight: 500;
+  color: var(--text-main);
+  max-width: 60%;
+  text-align: right;
+  word-break: break-word;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 0.8125rem;
+  color: #94a3b8;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
